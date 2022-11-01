@@ -1,5 +1,10 @@
 import { Component } from 'react';
 import './App.scss';
+import {
+  Button,
+  Paper,
+  Box,
+} from '@mui/material';
 import { Clock } from './Clock';
 
 function getRandomName(): string {
@@ -44,22 +49,40 @@ export class App extends Component<{}, State> {
 
     return (
       <div className="app">
-        <div className="app__content">
-          <h1>React clock</h1>
-
-          {hasClock && <Clock name={clockName} />}
-          <button
-            className="button"
-            type="button"
-            onClick={() => {
-              this.setState((currentState) => ({
-                hasClock: !currentState.hasClock,
-              }));
+        <Paper elevation={10}>
+          <Box
+            sx={{
+              width: 400,
+              height: 250,
+              backgroundColor: 'lightgrey',
+              '&:hover': {
+                backgroundColor: 'lightgrey',
+                opacity: [0.9, 0.8, 0.7],
+              },
             }}
           >
-            Touch me
-          </button>
-        </div>
+            <div className="app__content">
+              <h1>React clock</h1>
+
+              {hasClock && <Clock name={clockName} />}
+
+              <Button
+                variant="contained"
+                sx={{
+                  width: 300,
+                  background: 'grey',
+                }}
+                onClick={() => {
+                  this.setState((currentState) => ({
+                    hasClock: !currentState.hasClock,
+                  }));
+                }}
+              >
+                click on me
+              </Button>
+            </div>
+          </Box>
+        </Paper>
       </div>
     );
   }
