@@ -13,10 +13,10 @@ export class Clock extends Component<Props, State> {
     today: new Date(),
   };
 
-  timer = 0;
+  timer: NodeJS.Timer | null = null;
 
   componentDidMount() {
-    this.timer = window.setInterval(() => {
+    this.timer = setInterval(() => {
       this.setState({ today: new Date() });
 
       window.console.info(this.state.today.toUTCString().slice(-12, -4));
@@ -24,7 +24,9 @@ export class Clock extends Component<Props, State> {
   }
 
   componentWillUnmount() {
-    clearInterval(this.timer);
+    if (this.timer) {
+      clearInterval(this.timer);
+    }
   }
 
   render() {

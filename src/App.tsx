@@ -14,13 +14,13 @@ function getRandomName(): string {
 }
 
 interface State {
-  hasClock: boolean;
+  isClockVisible: boolean;
   clockName: string;
 }
 
 export class App extends Component<{}, State> {
   state: State = {
-    hasClock: true,
+    isClockVisible: true,
     clockName: 'Clock-0',
   };
 
@@ -33,9 +33,9 @@ export class App extends Component<{}, State> {
   }
 
   componentDidUpdate(_: {}, prevState: State) {
-    const { clockName, hasClock } = this.state;
+    const { clockName, isClockVisible } = this.state;
 
-    if (clockName !== prevState.clockName && hasClock) {
+    if (clockName !== prevState.clockName && isClockVisible) {
       window.console.debug(`Renamed from ${prevState.clockName} to ${clockName}`);
     }
   }
@@ -44,8 +44,14 @@ export class App extends Component<{}, State> {
     window.clearInterval(this.timerId);
   }
 
+  toggleClockVisibility = () => {
+    this.setState((currentState) => ({
+      isClockVisible: !currentState.isClockVisible,
+    }));
+  };
+
   render() {
-    const { clockName, hasClock } = this.state;
+    const { clockName, isClockVisible } = this.state;
 
     return (
       <div className="app">
@@ -55,16 +61,12 @@ export class App extends Component<{}, State> {
               width: 400,
               height: 250,
               backgroundColor: 'lightgrey',
-              '&:hover': {
-                backgroundColor: 'lightgrey',
-                opacity: [0.9, 0.8, 0.7],
-              },
             }}
           >
             <div className="app__content">
               <h1>React clock</h1>
 
-              {hasClock && <Clock name={clockName} />}
+              {isClockVisible && <Clock name={clockName} />}
 
               <Button
                 variant="contained"
@@ -72,11 +74,7 @@ export class App extends Component<{}, State> {
                   width: 300,
                   background: 'grey',
                 }}
-                onClick={() => {
-                  this.setState((currentState) => ({
-                    hasClock: !currentState.hasClock,
-                  }));
-                }}
+                onClick={this.toggleClockVisibility}
               >
                 click on me
               </Button>
