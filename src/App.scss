@@ -1,8 +1,36 @@
-iframe {
-  display: none;
+* {
+  box-sizing: border-box;
 }
 
 html {
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 24px;
+}
+
+.app {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100vw;
+  height: 100vh;
+
+  margin: 0 auto;
+
+  background-color: whitesmoke;
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    justify-content: space-between;
+    height: 100%;
+
+    padding: 16px;
+  }
+}
+
+.clock {
+  margin-bottom: 16px;
 }
